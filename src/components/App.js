@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './header';
 import AddForm from './addform';
 import ItemList from './itemlist';
+import SearchForm from './searchform';
 
 
 export default class App extends React.Component {
@@ -12,15 +13,15 @@ export default class App extends React.Component {
             tasks: [
                 "Complete this todolist app!",
                 "Eat lunch"
-            ]
+            ],
+            searchTerm: ''
         };
     }
 
   addItem() {
         this.setState({
-
-          tasks: [...this.state.tasks, this.state.inputValue]
-
+          tasks: [...this.state.tasks, this.state.inputValue], 
+          inputValue: ''
       });
   }
 
@@ -28,12 +29,12 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <Header />
-
-          <ItemList tasks={this.state.tasks} />
           <AddForm
               onItemAdd={() => this.addItem()}
               onInputChanged={value => this.setState({ inputValue: value })
           }/>
+        <SearchForm onChange={searchTerm => this.setState({ searchTerm })}/>
+        <ItemList tasks={this.state.tasks} />
 
       </div>
     );
