@@ -1,21 +1,40 @@
 import React from 'react';
 import Header from './header';
-import InputSection from './inputsection';
-import ToDoList from './todolist';
+import AddForm from './addform';
+import ItemList from './itemlist';
+
 
 export default class App extends React.Component {
-  Constructor(props) {
-    super(props);
-    this.state = {
-      task: "Complete this todolist app!"
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputValue: '',
+            tasks: [
+                "Complete this todolist app!",
+                "Eat lunch"
+            ]
+        };
     }
+
+  addItem() {
+        this.setState({
+
+          tasks: [...this.state.tasks, this.state.inputValue]
+
+      });
   }
+
   render() {
     return (
       <div className="App">
         <Header />
-        <InputSection />
-        <ToDoList text={this.state.task}/>
+
+          <ItemList tasks={this.state.tasks} />
+          <AddForm
+              onItemAdd={() => this.addItem()}
+              onInputChanged={value => this.setState({ inputValue: value })
+          }/>
+
       </div>
     );
   }
